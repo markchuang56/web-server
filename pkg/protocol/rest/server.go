@@ -20,20 +20,21 @@ func RunServer(ctx context.Context, grpcPort, httpPort string) error {
 	ctx, cancel := context.WithCancel(ctx)
 	defer cancel()
 
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = grpcPort
-	}
+	//https: //fitbit-oauth.herokuapp.com/
+	//port := os.Getenv("PORT")
+	//if port == "" {
+	//	port = grpcPort
+	//}
 	//fmt.Println(port)
 
 	mux := runtime.NewServeMux()
 	opts := []grpc.DialOption{grpc.WithInsecure()}
-	if err := v1.RegisterToDoServiceHandlerFromEndpoint(ctx, mux, "localhost:"+port, opts); err != nil {
+	if err := v1.RegisterToDoServiceHandlerFromEndpoint(ctx, mux, "localhost:"+grpcPort, opts); err != nil {
 		log.Fatalf("failed to start HTTP gateway: %v", err)
 	}
 
 	srv := &http.Server{
-		Addr:    ":" + port,
+		Addr:    ":" + httpPort,
 		Handler: mux,
 	}
 

@@ -4,6 +4,7 @@ import (
 	"context"
 	"flag"
 	"fmt"
+	"os"
 
 	//"../../protocol/grpc"
 	//"../../protocol/rest"
@@ -43,12 +44,18 @@ func RunServer() error {
 
 	flag.Parse()
 
-	if len(cfg.GRPCPort) == 0 {
-		return fmt.Errorf("invalid TCP port for gRPC server: '%s'", cfg.GRPCPort)
-	}
+	port := os.Getenv("PORT")
+	if port == "" {
+		if len(cfg.GRPCPort) == 0 {
+			return fmt.Errorf("invalid TCP port for gRPC server: '%s'", cfg.GRPCPort)
+		}
 
-	if len(cfg.HTTPPort) == 0 {
-		return fmt.Errorf("invalid TCP port for HTTP gateway: '%s'", cfg.HTTPPort)
+		if len(cfg.HTTPPort) == 0 {
+			return fmt.Errorf("invalid TCP port for HTTP gateway: '%s'", cfg.HTTPPort)
+		}
+	} else {
+		cfg.GRPCPort = port
+		cfg.HTTPPort = port
 	}
 
 	v1API := v1.NewToDoServiceServer()

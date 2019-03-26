@@ -9,8 +9,11 @@ import (
 	//"github.com/golang/protobuf/ptypes"
 	"google.golang.org/grpc"
 
-	api "../../pkg/api/v1"
-	aux "../../pkg/aux"
+	//api "../../pkg/api/v1"
+	//aux "../../pkg/aux"
+	"go-heroku/fitbit-demo/web-server/pkg/api/v1"
+	"go-heroku/fitbit-demo/web-server/pkg/aux"
+
 	//fbitsdk "../../pkg/service-fitbit/fitbit-v1"
 	//"encoding/json"
 	"fmt"

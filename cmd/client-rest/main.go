@@ -1,16 +1,18 @@
 package main
 
 import (
-	"../../pkg/api/v1"
-	//fbitsdk "../../pkg/service-fitbit/fitbit-v1"
+	//"../../pkg/api/v1"
 	"encoding/json"
 	"flag"
 	"fmt"
+	"go-heroku/fitbit-demo/web-server/pkg/api/v1"
 	"io/ioutil"
 	"log"
 	"net/http"
 	//"strconv"
-	"../../pkg/aux"
+	//"../../pkg/aux"
+	"go-heroku/fitbit-demo/web-server/pkg/aux"
+
 	"strings"
 	"time"
 )

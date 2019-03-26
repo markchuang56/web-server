@@ -1,7 +1,9 @@
 package aux
 
 import (
-	"../../pkg/api/v1"
+	//"../../pkg/api/v1"
+	"go-heroku/fitbit-demo/web-server/pkg/api/v1"
+
 	"encoding/json"
 	//"fmt"
 	"io/ioutil"

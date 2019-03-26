@@ -1,0 +1,268 @@
+syntax = "proto3";
+
+package v1;
+
+import "google/protobuf/timestamp.proto";
+//import "google/protobuf/empty.proto";
+
+// http REST
+import "google/api/annotations.proto";
+import "protoc-gen-swagger/options/annotations.proto";
+
+option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
+	info: {
+		title: "ToDo service";
+		version: "1.0";
+		contact: {
+			name: "go-grpc-http-rest-mecroservice project";
+			url: "https//github.com";
+			email: "jasonchuang56@hotmail.com";
+		};
+	};
+	schemes: HTTP;
+	consumes: "application/json";
+	produces: "application/json";
+	responses: {
+		key: "404";
+		value: {
+			description: "Returned when the resource does not exist.";
+			schema: {
+				json_schema: {
+					type: STRING;
+				}
+			}
+		}
+	}
+};
+
+message FitbitToken {
+	// Api version:
+	string api = 1;
+	
+	string accessToken = 2; //  `json:"access_token"`
+
+	// TokenType is the type of token.
+	// The Type method returns either this or "Bearer", the default.
+	string tokenType = 3; // `json:"token_type,omitempty"`
+
+	// RefreshToken is a token that's used by the application
+	// (as opposed to the user) to refresh the access token
+	// if it expires.
+	string refreshToken = 4; // `json:"refresh_token,omitempty"`
+
+	// Expiry is the optional expiration time of the access token.
+	//
+	// If zero, TokenSource implementations will reuse the same
+	// token forever and RefreshToken or equivalent
+	// mechanisms for that TokenSource will not be used.
+	string expiry = 5; //time.Time `json:"expiry,omitempty"`
+	//int64 expiry = 5; //time.Time `json:"expiry,omitempty"`
+
+	string userId = 6; // `json:"user_id,omitempty"`
+
+}
+
+// Refresh Token message
+message RefreshTokenRequest {
+	// Api version:
+	string api = 1;
+	string item = 2;
+	FitbitToken  fitbitToken = 3;
+	
+}
+
+message RefreshTokenResponse {
+	// Api version:
+	string api = 1;
+	string item = 2;
+	FitbitToken  fitbitTokenNew = 3;
+}
+
+
+// Activities Step message
+message ActivitiesStep {
+	string dateTime = 1;
+	string steps = 2;
+}
+
+message ActivitiesStepRequest {
+	// Api version:
+	string api = 1;
+	string item = 2;
+	FitbitToken  fitbitToken = 3;
+}
+
+// Contains list of all ActivitiesStep tasks
+message ActivitiesStepResponse {
+	// Api version:
+	string api = 1;
+	string item = 2;
+	
+	// List of all ActivitiesStep tasks
+	repeated ActivitiesStep activitiesSteps = 3;
+}
+
+
+message ActivitiesDistance {
+	string dateTime = 1;
+	string distance = 2;
+}
+
+message ActivitiesDistanceRequest {
+	// Api version:
+	string api = 1;
+	string item = 2;
+	FitbitToken  fitbitToken  = 3;
+}
+
+// Contains list of all Activities Distance tasks
+message ActivitiesDistanceResponse {
+	// Api version:
+	string api = 1;
+	string item = 2;
+	
+	// List of all ActivitiesStep tasks
+	repeated ActivitiesDistance activitiesDistance = 3;
+}
+
+// HEART RATE
+message ActivitiesHeartRate {
+	string dateTime = 1;
+	
+	string bead = 2;
+}
+
+message ActivitiesHeartRateRequest {
+	// Api version:
+	string api = 1;
+	string item = 2;
+	FitbitToken  fitbitToken  = 3;
+}
+
+// Contains list of all Activities Heart Rate tasks
+message ActivitiesHeartRateResponse {
+	// Api version:
+	string api = 1;
+	string item = 2;
+	
+	// List of all ActivitiesStep tasks
+	repeated ActivitiesHeartRate activitiesHeartRate = 3;
+}
+
+/////////
+message ToDo {
+	int64 id = 1;
+	
+	string title = 2;
+	
+	string description = 3;
+	
+	google.protobuf.Timestamp reminder = 4;
+}
+
+// Create message
+message CreateRequest {
+	string api = 1;
+	
+	ToDo toDo = 2;
+}
+
+message CreateResponse {
+	string api = 1;
+	
+	int64 id = 2;
+}
+
+// Read message
+message ReadRequest {
+	string api = 1;
+	
+	int64 id = 2;
+}
+
+message ReadResponse {
+	string api = 1;
+	
+	ToDo toDo = 2;
+}
+
+// Request data to read all todo task
+message ReadAllRequest {
+	// Api version:
+	string api = 1;
+}
+
+// Contains list of all todo tasks
+message ReadAllResponse {
+	// Api version:
+	string api = 1;
+	
+	// List of all todo tasks
+	repeated ToDo toDos = 2;
+}
+
+// Service
+service ToDoService {
+	// Get New Refresh Token
+	rpc ReadNewRefreshToken(RefreshTokenRequest) returns (RefreshTokenResponse) {
+		option (google.api.http) = {
+			post: "/v1/fitbit/refreshtoken"
+			body: "*"
+		};
+	};
+
+
+	// Read All ActivitiesStepResponse tasks
+	rpc ReadActivitiesStep(ActivitiesStepRequest) returns (ActivitiesStepResponse) {
+		option (google.api.http) = {
+			post: "/v1/activities/step/all"
+			body: "*"
+		};
+	};
+	
+	
+	// Read All ActivitiesDistanceResponse tasks
+	rpc ReadActivitiesDistance(ActivitiesDistanceRequest) returns (ActivitiesDistanceResponse) {
+		option (google.api.http) = {
+			post: "/v1/activities/distance/all"
+			body: "*"
+		};
+	};
+	
+	// Read All ActivitiesHeartRateResponse tasks
+	rpc ReadActivitiesHeartRate(ActivitiesHeartRateRequest) returns (ActivitiesHeartRateResponse) {
+		option (google.api.http) = {
+			post: "/v1/activities/heartrate/all"
+			body: "*"
+		};
+	};
+
+	// Read all todo tasks
+	rpc ReadAll(ReadAllRequest) returns (ReadAllResponse) {
+		option (google.api.http) = {
+			get: "/v1/todo/all"
+		};
+	};
+	
+	// Create new todo task
+	rpc Create(CreateRequest) returns (CreateResponse) {
+		option (google.api.http) = {
+			post: "/v1/todo"
+			body: "*"
+		};
+	};
+	
+	// Read todo todo task
+	rpc Read(ReadRequest) returns (ReadResponse) {
+		option (google.api.http) = {
+			get: "/v1/todo/{id}"
+		};
+	};
+	
+	// Send Fitbit token testing ...
+	//rpc SendToken(FitbitToken) returns (google.protobuf.Empty) {
+	//	option (google.api.http) = {
+	//		get: "/v1/todo/token"
+	//	};
+	//};
+}

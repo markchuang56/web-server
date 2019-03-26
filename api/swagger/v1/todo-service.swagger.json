@@ -1,0 +1,530 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "ToDo service",
+    "version": "1.0",
+    "contact": {
+      "name": "go-grpc-http-rest-mecroservice project",
+      "url": "https//github.com",
+      "email": "jasonchuang56@hotmail.com"
+    }
+  },
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/activities/distance/all": {
+      "post": {
+        "summary": "Read All ActivitiesDistanceResponse tasks",
+        "operationId": "ReadActivitiesDistance",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ActivitiesDistanceResponse"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "format": "string"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1ActivitiesDistanceRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ToDoService"
+        ]
+      }
+    },
+    "/v1/activities/heartrate/all": {
+      "post": {
+        "summary": "Read All ActivitiesHeartRateResponse tasks",
+        "operationId": "ReadActivitiesHeartRate",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ActivitiesHeartRateResponse"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "format": "string"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1ActivitiesHeartRateRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ToDoService"
+        ]
+      }
+    },
+    "/v1/activities/step/all": {
+      "post": {
+        "summary": "Read All ActivitiesStepResponse tasks",
+        "operationId": "ReadActivitiesStep",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ActivitiesStepResponse"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "format": "string"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1ActivitiesStepRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ToDoService"
+        ]
+      }
+    },
+    "/v1/fitbit/refreshtoken": {
+      "post": {
+        "summary": "Get New Refresh Token",
+        "operationId": "ReadNewRefreshToken",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1RefreshTokenResponse"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "format": "string"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1RefreshTokenRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ToDoService"
+        ]
+      }
+    },
+    "/v1/todo": {
+      "post": {
+        "summary": "Create new todo task",
+        "operationId": "Create",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CreateResponse"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "format": "string"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1CreateRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ToDoService"
+        ]
+      }
+    },
+    "/v1/todo/all": {
+      "get": {
+        "summary": "Read all todo tasks",
+        "operationId": "ReadAll",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ReadAllResponse"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "format": "string"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "api",
+            "description": "Api version:.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "ToDoService"
+        ]
+      }
+    },
+    "/v1/todo/{id}": {
+      "get": {
+        "summary": "Read todo todo task",
+        "operationId": "Read",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ReadResponse"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "format": "string"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "api",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "ToDoService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "v1ActivitiesDistance": {
+      "type": "object",
+      "properties": {
+        "dateTime": {
+          "type": "string"
+        },
+        "distance": {
+          "type": "string"
+        }
+      }
+    },
+    "v1ActivitiesDistanceRequest": {
+      "type": "object",
+      "properties": {
+        "api": {
+          "type": "string",
+          "title": "Api version:"
+        },
+        "item": {
+          "type": "string"
+        },
+        "fitbitToken": {
+          "$ref": "#/definitions/v1FitbitToken"
+        }
+      }
+    },
+    "v1ActivitiesDistanceResponse": {
+      "type": "object",
+      "properties": {
+        "api": {
+          "type": "string",
+          "title": "Api version:"
+        },
+        "item": {
+          "type": "string"
+        },
+        "activitiesDistance": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1ActivitiesDistance"
+          },
+          "title": "List of all ActivitiesStep tasks"
+        }
+      },
+      "title": "Contains list of all Activities Distance tasks"
+    },
+    "v1ActivitiesHeartRate": {
+      "type": "object",
+      "properties": {
+        "dateTime": {
+          "type": "string"
+        },
+        "bead": {
+          "type": "string"
+        }
+      },
+      "title": "HEART RATE"
+    },
+    "v1ActivitiesHeartRateRequest": {
+      "type": "object",
+      "properties": {
+        "api": {
+          "type": "string",
+          "title": "Api version:"
+        },
+        "item": {
+          "type": "string"
+        },
+        "fitbitToken": {
+          "$ref": "#/definitions/v1FitbitToken"
+        }
+      }
+    },
+    "v1ActivitiesHeartRateResponse": {
+      "type": "object",
+      "properties": {
+        "api": {
+          "type": "string",
+          "title": "Api version:"
+        },
+        "item": {
+          "type": "string"
+        },
+        "activitiesHeartRate": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1ActivitiesHeartRate"
+          },
+          "title": "List of all ActivitiesStep tasks"
+        }
+      },
+      "title": "Contains list of all Activities Heart Rate tasks"
+    },
+    "v1ActivitiesStep": {
+      "type": "object",
+      "properties": {
+        "dateTime": {
+          "type": "string"
+        },
+        "steps": {
+          "type": "string"
+        }
+      },
+      "title": "Activities Step message"
+    },
+    "v1ActivitiesStepRequest": {
+      "type": "object",
+      "properties": {
+        "api": {
+          "type": "string",
+          "title": "Api version:"
+        },
+        "item": {
+          "type": "string"
+        },
+        "fitbitToken": {
+          "$ref": "#/definitions/v1FitbitToken"
+        }
+      }
+    },
+    "v1ActivitiesStepResponse": {
+      "type": "object",
+      "properties": {
+        "api": {
+          "type": "string",
+          "title": "Api version:"
+        },
+        "item": {
+          "type": "string"
+        },
+        "activitiesSteps": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1ActivitiesStep"
+          },
+          "title": "List of all ActivitiesStep tasks"
+        }
+      },
+      "title": "Contains list of all ActivitiesStep tasks"
+    },
+    "v1CreateRequest": {
+      "type": "object",
+      "properties": {
+        "api": {
+          "type": "string"
+        },
+        "toDo": {
+          "$ref": "#/definitions/v1ToDo"
+        }
+      },
+      "title": "Create message"
+    },
+    "v1CreateResponse": {
+      "type": "object",
+      "properties": {
+        "api": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "v1FitbitToken": {
+      "type": "object",
+      "properties": {
+        "api": {
+          "type": "string",
+          "title": "Api version:"
+        },
+        "accessToken": {
+          "type": "string"
+        },
+        "tokenType": {
+          "type": "string",
+          "description": "TokenType is the type of token.\nThe Type method returns either this or \"Bearer\", the default."
+        },
+        "refreshToken": {
+          "type": "string",
+          "description": "RefreshToken is a token that's used by the application\n(as opposed to the user) to refresh the access token\nif it expires."
+        },
+        "expiry": {
+          "type": "string",
+          "description": "Expiry is the optional expiration time of the access token.\n\nIf zero, TokenSource implementations will reuse the same\ntoken forever and RefreshToken or equivalent\nmechanisms for that TokenSource will not be used."
+        },
+        "userId": {
+          "type": "string"
+        }
+      }
+    },
+    "v1ReadAllResponse": {
+      "type": "object",
+      "properties": {
+        "api": {
+          "type": "string",
+          "title": "Api version:"
+        },
+        "toDos": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1ToDo"
+          },
+          "title": "List of all todo tasks"
+        }
+      },
+      "title": "Contains list of all todo tasks"
+    },
+    "v1ReadResponse": {
+      "type": "object",
+      "properties": {
+        "api": {
+          "type": "string"
+        },
+        "toDo": {
+          "$ref": "#/definitions/v1ToDo"
+        }
+      }
+    },
+    "v1RefreshTokenRequest": {
+      "type": "object",
+      "properties": {
+        "api": {
+          "type": "string",
+          "title": "Api version:"
+        },
+        "item": {
+          "type": "string"
+        },
+        "fitbitToken": {
+          "$ref": "#/definitions/v1FitbitToken"
+        }
+      },
+      "title": "Refresh Token message"
+    },
+    "v1RefreshTokenResponse": {
+      "type": "object",
+      "properties": {
+        "api": {
+          "type": "string",
+          "title": "Api version:"
+        },
+        "item": {
+          "type": "string"
+        },
+        "fitbitTokenNew": {
+          "$ref": "#/definitions/v1FitbitToken"
+        }
+      }
+    },
+    "v1ToDo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "reminder": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "title": "///////"
+    }
+  }
+}

@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/golang/protobuf/ptypes"
-	//	empty "github.com/golang/protobuf/ptypes/empty"
+	empty "github.com/golang/protobuf/ptypes/empty"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
@@ -105,6 +105,11 @@ func (s *toDoServiceServer) Read(ctx context.Context, req *v1.ReadRequest) (*v1.
 		ToDo: &td,
 	}, nil
 
+}
+
+func (s *toDoServiceServer) RootToken(context.Context, *empty.Empty) (*empty.Empty, error) {
+	fmt.Println("what're doing here ???")
+	return nil, nil
 }
 
 /*

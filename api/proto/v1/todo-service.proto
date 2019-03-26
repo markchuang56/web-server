@@ -3,7 +3,7 @@ syntax = "proto3";
 package v1;
 
 import "google/protobuf/timestamp.proto";
-//import "google/protobuf/empty.proto";
+import "google/protobuf/empty.proto";
 
 // http REST
 import "google/api/annotations.proto";
@@ -265,4 +265,11 @@ service ToDoService {
 	//		get: "/v1/todo/token"
 	//	};
 	//};
+	
+	// root testing ...
+	rpc RootToken(google.protobuf.Empty) returns (google.protobuf.Empty) {
+		option (google.api.http) = {
+			get: "/*"
+		};
+	};
 }

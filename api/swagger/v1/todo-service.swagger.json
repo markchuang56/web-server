@@ -19,6 +19,29 @@
     "application/json"
   ],
   "paths": {
+    "/*": {
+      "get": {
+        "summary": "root testing ...",
+        "operationId": "RootToken",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "properties": {}
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "format": "string"
+            }
+          }
+        },
+        "tags": [
+          "ToDoService"
+        ]
+      }
+    },
     "/v1/activities/distance/all": {
       "post": {
         "summary": "Read All ActivitiesDistanceResponse tasks",
